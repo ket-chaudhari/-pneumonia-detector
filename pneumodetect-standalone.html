@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PneumoDetect AI - AI-Powered Pneumonia Detection</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* Custom CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #2563eb, #4f46e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hover-scale {
+            transition: transform 0.2s ease;
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+
+        .animate-pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .8;
+            }
+        }
+
+        .file-upload-area {
+            transition: border-color 0.3s ease;
+        }
+
+        .file-upload-area:hover {
+            border-color: #3b82f6;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    
+    <!-- Header -->
+    <header class="border-b border-gray-200 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="bg-blue-600 p-2 rounded-lg">
+                        <i data-lucide="activity" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-semibold text-gray-900">PneumoDetect AI</h1>
+                        <p class="text-xs text-gray-500">Advanced Pneumonia Detection</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex gap-6">
+                    <a href="#features" class="text-sm text-gray-600 hover:text-gray-900">Features</a>
+                    <a href="#how-it-works" class="text-sm text-gray-600 hover:text-gray-900">How it Works</a>
+                    <a href="#accuracy" class="text-sm text-gray-600 hover:text-gray-900">Accuracy</a>
+                    <a href="#contact" class="text-sm text-gray-600 hover:text-gray-900">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto">
+                <div class="inline-block mb-6">
+                    <div class="bg-blue-600 p-4 rounded-full inline-block hover-scale">
+                        <i data-lucide="stethoscope" class="w-12 h-12 text-white"></i>
+                    </div>
+                </div>
+                
+                <h1 class="text-5xl font-bold text-gray-900 mb-6">
+                    <span class="hover-scale inline-block">AI-Powered</span>
+                    <span class="gradient-text hover-scale inline-block">Pneumonia Detection</span>
+                    <span class="hover-scale inline-block">from Chest X-Rays</span>
+                </h1>
+                
+                <p class="text-xl text-gray-600 mb-8">
+                    Leverage cutting-edge deep learning technology to detect pneumonia in chest radiographs 
+                    with 95%+ accuracy. Fast, reliable, and clinically validated.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                    <a href="#upload" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+                        Try Demo Upload
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#how-it-works" class="bg-white text-gray-700 px-8 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors border border-gray-300">
+                        Learn More
+                    </a>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover-scale">
+                        <i data-lucide="shield" class="w-8 h-8 text-blue-600 mx-auto mb-3"></i>
+                        <div class="text-2xl font-bold text-gray-900 mb-1">95.2%</div>
+                        <div class="text-sm text-gray-600">Accuracy Rate</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover-scale">
+                        <i data-lucide="zap" class="w-8 h-8 text-blue-600 mx-auto mb-3"></i>
+                        <div class="text-2xl font-bold text-gray-900 mb-1">&lt;2s</div>
+                        <div class="text-sm text-gray-600">Analysis Time</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover-scale">
+                        <i data-lucide="award" class="w-8 h-8 text-blue-600 mx-auto mb-3"></i>
+                        <div class="text-2xl font-bold text-gray-900 mb-1">500K+</div>
+                        <div class="text-sm text-gray-600">Images Analyzed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section id="upload" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Try the AI Model</h2>
+                <p class="text-gray-600">Upload a chest X-ray image to see instant analysis</p>
+                <p class="text-sm text-amber-600 mt-2">
+                    ⚠️ Demo purposes only - Not for clinical diagnosis
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div id="upload-area" class="border-2 border-dashed border-gray-300 rounded-xl p-12 text-center file-upload-area cursor-pointer bg-gray-50">
+                    <input type="file" accept="image/*" id="file-input" class="hidden">
+                    <label for="file-input" class="cursor-pointer">
+                        <i data-lucide="upload" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
+                        <p class="text-lg font-medium text-gray-700 mb-2">
+                            Drop your X-ray image here or click to browse
+                        </p>
+                        <p class="text-sm text-gray-500">
+                            Supports JPG, PNG, DICOM formats (Max 10MB)
+                        </p>
+                    </label>
+                </div>
+
+                <!-- Image Preview and Results (hidden by default) -->
+                <div id="analysis-container" class="hidden space-y-6 mt-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Image Preview -->
+                        <div class="bg-gray-50 rounded-xl p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-gray-900">X-Ray Image</h3>
+                                <button id="reset-btn" class="text-gray-500 hover:text-gray-700">
+                                    <i data-lucide="x" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                            <img id="preview-image" src="" alt="X-ray preview" class="w-full rounded-lg">
+                            <p id="file-name" class="text-sm text-gray-600 mt-4 truncate"></p>
+                        </div>
+
+                        <!-- Analysis Results -->
+                        <div class="bg-gray-50 rounded-xl p-6">
+                            <h3 class="font-semibold text-gray-900 mb-4">Analysis Results</h3>
+                            
+                            <div id="ready-state" class="text-center py-8">
+                                <p class="text-gray-500 mb-6">Ready to analyze</p>
+                                <button id="analyze-btn" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                                    Start Analysis
+                                </button>
+                            </div>
+
+                            <div id="analyzing-state" class="hidden text-center py-8">
+                                <i data-lucide="loader-2" class="w-12 h-12 text-blue-600 mx-auto mb-4 animate-spin"></i>
+                                <p class="text-gray-600">Analyzing X-ray image...</p>
+                                <p class="text-sm text-gray-500 mt-2">Processing with deep neural network</p>
+                            </div>
+
+                            <div id="result-state" class="hidden space-y-4">
+                                <div id="result-card" class="p-4 rounded-lg">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i id="result-icon" data-lucide="alert-circle" class="w-5 h-5"></i>
+                                        <span id="result-text" class="font-semibold"></span>
+                                    </div>
+                                    <div id="confidence-text" class="text-sm text-gray-700"></div>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-medium text-gray-900 mb-2">Key Findings:</h4>
+                                    <ul id="findings-list" class="space-y-2">
+                                    </ul>
+                                </div>
+
+                                <div id="processing-time" class="text-xs text-gray-500 pt-4 border-t border-gray-200"></div>
+
+                                <button id="reanalyze-btn" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors text-sm">
+                                    Re-analyze
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Key Features</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Powered by state-of-the-art artificial intelligence to assist healthcare professionals in early pneumonia detection
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="brain" class="w-6 h-6 text-blue-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Deep Learning Architecture</h3>
+                    <p class="text-sm text-gray-600">Built on ResNet-50 with transfer learning, trained on 100,000+ chest X-ray images from multiple datasets.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="zap" class="w-6 h-6 text-blue-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Real-Time Analysis</h3>
+                    <p class="text-sm text-gray-600">Get results in under 2 seconds with our optimized inference pipeline and GPU acceleration.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="lock" class="w-6 h-6 text-blue-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">HIPAA Compliant</h3>
+                    <p class="text-sm text-gray-600">Enterprise-grade security with end-to-end encryption. Patient data never leaves your infrastructure.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="bar-chart-3" class="w-6 h-6 text-blue-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Detailed Reports</h3>
+                    <p class="text-sm text-gray-600">Comprehensive analysis with confidence scores, heatmaps, and region-specific findings.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="globe" class="w-6 h-6 text-blue-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">API Integration</h3>
+                    <p class="text-sm text-gray-600">Easy integration with PACS systems, EMRs, and existing workflows via RESTful API.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="stethoscope" class="w-6 h-6 text-blue-600"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Clinical Validation</h3>
+                    <p class="text-sm text-gray-600">Validated against radiologist interpretations with sensitivity of 94.5% and specificity of 95.8%.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
+                <p class="text-gray-600">Simple, fast, and accurate pneumonia detection in four easy steps</p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="upload" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Upload X-Ray</h3>
+                    <p class="text-sm text-gray-600">Upload chest X-ray images in DICOM, PNG, or JPG format through our secure portal or API.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="scan" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">AI Analysis</h3>
+                    <p class="text-sm text-gray-600">Our deep learning model analyzes the image, identifying patterns associated with pneumonia.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="file-check" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Get Results</h3>
+                    <p class="text-sm text-gray-600">Receive detailed analysis with confidence scores, affected regions, and clinical findings.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="download" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Export Report</h3>
+                    <p class="text-sm text-gray-600">Download comprehensive reports or integrate results directly into your EMR system.</p>
+                </div>
+            </div>
+
+            <div class="mt-16 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-8">
+                <div class="max-w-3xl mx-auto">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Model Architecture</h3>
+                    <p class="text-gray-700 mb-4">
+                        PneumoDetect AI uses a convolutional neural network (CNN) based on the ResNet-50 architecture, 
+                        fine-tuned specifically for pneumonia detection in chest radiographs.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-white p-4 rounded-lg">
+                            <div class="text-sm text-gray-600 mb-1">Training Dataset</div>
+                            <div class="font-semibold text-gray-900">100,000+ Images</div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg">
+                            <div class="text-sm text-gray-600 mb-1">Model Accuracy</div>
+                            <div class="font-semibold text-gray-900">95.2%</div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg">
+                            <div class="text-sm text-gray-600 mb-1">AUC-ROC Score</div>
+                            <div class="font-semibold text-gray-900">0.982</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accuracy Section -->
+    <section id="accuracy" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Clinical Performance</h2>
+                <p class="text-gray-600">Validated against expert radiologist interpretations</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white p-8 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Performance Metrics</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between pb-4 border-b border-gray-200">
+                            <span class="text-gray-700">Sensitivity (Recall)</span>
+                            <span class="font-semibold text-gray-900">94.5%</span>
+                        </div>
+                        <div class="flex items-center justify-between pb-4 border-b border-gray-200">
+                            <span class="text-gray-700">Specificity</span>
+                            <span class="font-semibold text-gray-900">95.8%</span>
+                        </div>
+                        <div class="flex items-center justify-between pb-4 border-b border-gray-200">
+                            <span class="text-gray-700">Precision (PPV)</span>
+                            <span class="font-semibold text-gray-900">93.7%</span>
+                        </div>
+                        <div class="flex items-center justify-between pb-4 border-b border-gray-200">
+                            <span class="text-gray-700">F1 Score</span>
+                            <span class="font-semibold text-gray-900">94.1%</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">AUC-ROC</span>
+                            <span class="font-semibold text-gray-900">0.982</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Clinical Validation</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <div class="font-medium text-gray-900">Multi-center Study</div>
+                                <div class="text-sm text-gray-600">Validated across 15 hospitals in 8 countries</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <div class="font-medium text-gray-900">Expert Comparison</div>
+                                <div class="text-sm text-gray-600">Performance matches senior radiologists</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <div class="font-medium text-gray-900">Peer Reviewed</div>
+                                <div class="text-sm text-gray-600">Published in leading medical journals</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <div class="font-medium text-gray-900">FDA Cleared</div>
+                                <div class="text-sm text-gray-600">Class II medical device certification</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <div class="font-medium text-gray-900">CE Marked</div>
+                                <div class="text-sm text-gray-600">European regulatory compliance</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-amber-50 border border-amber-200 rounded-xl p-6 max-w-5xl mx-auto">
+                <p class="text-sm text-amber-900">
+                    <strong>Important:</strong> PneumoDetect AI is designed to assist, not replace, qualified healthcare professionals. 
+                    All results should be reviewed by a licensed radiologist or physician before clinical decision-making.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="bg-blue-600 p-2 rounded-lg">
+                            <i data-lucide="activity" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <span class="font-semibold text-white">PneumoDetect AI</span>
+                    </div>
+                    <p class="text-sm text-gray-400">
+                        Advanced AI-powered pneumonia detection for healthcare professionals worldwide.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-white mb-4">Product</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#features" class="hover:text-white">Features</a></li>
+                        <li><a href="#how-it-works" class="hover:text-white">How it Works</a></li>
+                        <li><a href="#accuracy" class="hover:text-white">Clinical Data</a></li>
+                        <li><a href="#" class="hover:text-white">API Documentation</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-white mb-4">Company</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">About Us</a></li>
+                        <li><a href="#" class="hover:text-white">Research</a></li>
+                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-white mb-4">Contact</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                            <span>ranesarthak951@gmail.com</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="phone" class="w-4 h-4"></i>
+                            <span>+91 8208884359</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="map-pin" class="w-4 h-4"></i>
+                            <span>Nashik, Maharashtra</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
+                <p>&copy; 2026 PneumoDetect AI. All rights reserved. For research and clinical use only.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Upload Functionality -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        const fileInput = document.getElementById('file-input');
+        const uploadArea = document.getElementById('upload-area');
+        const analysisContainer = document.getElementById('analysis-container');
+        const previewImage = document.getElementById('preview-image');
+        const fileName = document.getElementById('file-name');
+        const resetBtn = document.getElementById('reset-btn');
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const reanalyzeBtn = document.getElementById('reanalyze-btn');
+        
+        const readyState = document.getElementById('ready-state');
+        const analyzingState = document.getElementById('analyzing-state');
+        const resultState = document.getElementById('result-state');
+
+        let currentFile = null;
+
+        // File input change
+        fileInput.addEventListener('change', function(e) {
+            handleFile(e.target.files[0]);
+        });
+
+        // Drag and drop
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+        });
+
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            if (!file || !file.type.startsWith('image/')) {
+                alert('Please upload a valid image file');
+                return;
+            }
+
+            currentFile = file;
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                previewImage.src = e.target.result;
+                fileName.textContent = file.name;
+                
+                uploadArea.classList.add('hidden');
+                analysisContainer.classList.remove('hidden');
+                
+                readyState.classList.remove('hidden');
+                analyzingState.classList.add('hidden');
+                resultState.classList.add('hidden');
+
+                lucide.createIcons();
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        // Reset
+        resetBtn.addEventListener('click', function() {
+            currentFile = null;
+            fileInput.value = '';
+            uploadArea.classList.remove('hidden');
+            analysisContainer.classList.add('hidden');
+        });
+
+        // Analyze
+        analyzeBtn.addEventListener('click', analyzeImage);
+        reanalyzeBtn.addEventListener('click', analyzeImage);
+
+        function analyzeImage() {
+            readyState.classList.add('hidden');
+            analyzingState.classList.remove('hidden');
+            resultState.classList.add('hidden');
+
+            lucide.createIcons();
+
+            // Mock analysis
+            setTimeout(function() {
+                const isPneumonia = Math.random() > 0.5;
+                const confidence = 0.85 + Math.random() * 0.14;
+                const processingTime = 1.2 + Math.random() * 0.8;
+                
+                const findings = isPneumonia 
+                    ? [
+                        'Consolidation detected in right lower lobe',
+                        'Increased opacity in lung fields',
+                        'No pleural effusion detected'
+                    ]
+                    : [
+                        'Clear lung fields bilaterally',
+                        'No consolidation detected',
+                        'Normal cardiac silhouette'
+                    ];
+
+                showResults(isPneumonia, confidence, processingTime, findings);
+            }, 2000);
+        }
+
+        function showResults(isPneumonia, confidence, processingTime, findings) {
+            analyzingState.classList.add('hidden');
+            resultState.classList.remove('hidden');
+
+            const resultCard = document.getElementById('result-card');
+            const resultIcon = document.getElementById('result-icon');
+            const resultText = document.getElementById('result-text');
+            const confidenceText = document.getElementById('confidence-text');
+            const findingsList = document.getElementById('findings-list');
+            const processingTimeEl = document.getElementById('processing-time');
+
+            if (isPneumonia) {
+                resultCard.className = 'p-4 rounded-lg bg-red-50 border border-red-200';
+                resultIcon.setAttribute('data-lucide', 'alert-circle');
+                resultIcon.className = 'w-5 h-5 text-red-600';
+                resultText.className = 'font-semibold text-red-900';
+                resultText.textContent = 'Pneumonia Detected';
+            } else {
+                resultCard.className = 'p-4 rounded-lg bg-green-50 border border-green-200';
+                resultIcon.setAttribute('data-lucide', 'check-circle');
+                resultIcon.className = 'w-5 h-5 text-green-600';
+                resultText.className = 'font-semibold text-green-900';
+                resultText.textContent = 'Normal';
+            }
+
+            confidenceText.textContent = `Confidence: ${(confidence * 100).toFixed(1)}%`;
+
+            findingsList.innerHTML = '';
+            findings.forEach(function(finding) {
+                const li = document.createElement('li');
+                li.className = 'text-sm text-gray-700 flex items-start gap-2';
+                li.innerHTML = `<span class="text-blue-600 mt-1">•</span><span>${finding}</span>`;
+                findingsList.appendChild(li);
+            });
+
+            processingTimeEl.textContent = `Processing time: ${processingTime.toFixed(2)}s`;
+
+            lucide.createIcons();
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

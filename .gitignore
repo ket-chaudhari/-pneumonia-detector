@@ -1,0 +1,15 @@
+node_modules/
+.env
+dist/
+build/
+*.pyc
+__pycache__/
+
+# Python virtual environments
+venv/
+.venv/
+Back-end/venv/
+Back-end/__pycache__/
+
+# Local test heatmaps
+Back-end/static/heatmap.jpg
